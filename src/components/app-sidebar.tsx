@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Gauge, LayoutDashboard, Map, CalendarCheck, Users, AlertTriangle } from 'lucide-react';
+import { User, LayoutDashboard, Map, CalendarCheck, Users, AlertTriangle } from 'lucide-react';
 import { Sidebar, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
 import { BreatheWellLogo } from './icons';
 
@@ -11,6 +11,7 @@ const menuItems = [
   { href: '/activity-planner', label: 'Activity Planner', icon: CalendarCheck },
   { href: '/reports', label: 'Community Reports', icon: Users },
   { href: '/map', label: 'Live Map', icon: Map },
+  { href: '/profile', label: 'Profile', icon: User },
   { href: '/emergency', label: 'Emergency', icon: AlertTriangle },
 ];
 
