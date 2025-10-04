@@ -6,6 +6,7 @@ import { z } from 'zod';
 const FormSchema = z.object({
   activityType: z.string().min(1, 'Activity type is required.'),
   location: z.string().min(1, 'Location is required.'),
+  healthProfile: z.string().optional(),
 });
 
 export type State = {
@@ -15,6 +16,7 @@ export type State = {
   errors?: {
     activityType?: string[];
     location?: string[];
+    healthProfile?: string[];
   };
 };
 
@@ -25,6 +27,7 @@ export async function getOptimalActivityTimes(
   const validatedFields = FormSchema.safeParse({
     activityType: formData.get('activityType'),
     location: formData.get('location'),
+    healthProfile: formData.get('healthProfile'),
   });
 
   if (!validatedFields.success) {
@@ -34,7 +37,7 @@ export async function getOptimalActivityTimes(
     };
   }
   
-  const { activityType, location } = validatedFields.data;
+  const { activityType, location, healthProfile } = validatedFields.data;
 
   // Mock data for the GenAI flow
   const mockCalendarData = JSON.stringify([
@@ -55,7 +58,7 @@ export async function getOptimalActivityTimes(
       location,
       calendarData: mockCalendarData,
       airQualityData: mockAirQualityData,
-      healthProfile: 'Mild asthma',
+      healthProfile: healthProfile || 'Mild asthma', // Fallback for existing structure
     });
 
     if (result.suggestedTimes.length > 0) {

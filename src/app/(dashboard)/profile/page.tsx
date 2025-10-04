@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -56,7 +57,7 @@ export default function ProfilePage() {
             <div className="space-y-4 rounded-lg border p-4">
                 <h3 className="text-sm font-medium">Health Conditions</h3>
                 <p className="text-sm text-muted-foreground">
-                    Enable conditions to receive specialized alerts.
+                    Enable conditions to receive specialized alerts or add your own.
                 </p>
                 <div className="flex items-center justify-between">
                     <Label htmlFor="asthma" className="flex flex-col space-y-1">
@@ -75,6 +76,13 @@ export default function ProfilePage() {
                         </span>
                     </Label>
                     <Switch id="heart-condition" name="heart-condition" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="other-conditions">Other Conditions</Label>
+                  <Textarea id="other-conditions" name="other-conditions" placeholder="e.g., Allergies, COPD" />
+                  <p className="text-xs text-muted-foreground">
+                    List any other conditions for more personalized advice.
+                  </p>
                 </div>
             </div>
 
