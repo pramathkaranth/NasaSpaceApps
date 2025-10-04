@@ -1,6 +1,7 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { getOptimalActivityTimes } from './actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 
 export default function ActivityPlannerPage() {
   const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(getOptimalActivityTimes, initialState);
+  const [state, dispatch] = useActionState(getOptimalActivityTimes, initialState);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -49,6 +50,11 @@ export default function ActivityPlannerPage() {
               <Label htmlFor="location">Location</Label>
               <Input id="location" name="location" placeholder="e.g., San Francisco, CA" />
               {state.errors?.location && <p className="text-sm font-medium text-destructive">{state.errors.location[0]}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="healthProfile">Other Health Conditions (Optional)</Label>
+              <Input id="healthProfile" name="healthProfile" placeholder="e.g., Allergies, COPD" />
+               {state.errors?.healthProfile && <p className="text-sm font-medium text-destructive">{state.errors.healthProfile[0]}</p>}
             </div>
           </CardContent>
           <CardFooter>
