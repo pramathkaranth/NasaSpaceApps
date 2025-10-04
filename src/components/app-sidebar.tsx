@@ -1,0 +1,49 @@
+"use client"
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Gauge, LayoutDashboard, Map, CalendarCheck, Users, AlertTriangle } from 'lucide-react';
+import { Sidebar, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
+import { BreatheWellLogo } from './icons';
+
+const menuItems = [
+  { href: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/activity-planner', label: 'Activity Planner', icon: CalendarCheck },
+  { href: '/reports', label: 'Community Reports', icon: Users },
+  { href: '/map', label: 'Live Map', icon: Map },
+  { href: '/emergency', label: 'Emergency', icon: AlertTriangle },
+];
+
+export function AppSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <Link href="/" className="flex items-center gap-2.5">
+          <BreatheWellLogo className="size-8" />
+          <h1 className="font-headline text-2xl font-semibold tracking-tight">
+            BreatheWell
+          </h1>
+        </Link>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarMenu>
+          {menuItems.map(item => (
+            <SidebarMenuItem key={item.label}>
+              <Link href={item.href} legacyBehavior passHref>
+                <SidebarMenuButton
+                  isActive={pathname === item.href}
+                  tooltip={{ children: item.label, side: 'right' }}
+                >
+                  <item.icon />
+                  <span>{item.label}</span>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+    </Sidebar>
+  );
+}
